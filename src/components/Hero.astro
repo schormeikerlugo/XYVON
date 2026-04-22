@@ -294,7 +294,7 @@ import { site } from '../data/site';
     flex-wrap: wrap;
     gap: 0 0.22em;
     overflow: hidden;
-    padding-block: 0.12em 0.18em;
+    padding-block: 0.02em 0.04em;
   }
 
   .hero__line--italic {
@@ -306,7 +306,10 @@ import { site } from '../data/site';
   .hero__word {
     display: inline-block;
     overflow: hidden;
-    padding-block: 0.12em 0.25em;
+    overflow: clip;
+    overflow-clip-margin: 0.2em;
+    padding-block: 0.05em 0.15em;
+    padding-inline-end: 0.05em;
     vertical-align: baseline;
   }
 

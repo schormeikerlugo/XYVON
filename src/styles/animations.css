@@ -117,6 +117,10 @@
   max-width: 100%;
 }
 
+.split em {
+  display: contents;
+}
+
 @media (max-width: 640px) {
   .split {
     justify-content: center;
@@ -126,8 +130,11 @@
 .split__word {
   display: inline-block;
   overflow: hidden;
+  overflow: clip;
+  overflow-clip-margin: 0.2em;
   line-height: 1.05;
   padding-block: 0.08em 0.2em;
+  padding-inline-end: 0.05em;
 }
 
 .split__word > span {
