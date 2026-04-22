@@ -3,7 +3,21 @@
 
 <section class="cta" aria-label="Start your protocol">
   <div class="cta__bg" aria-hidden="true">
-    <img src="/images/cta-bg.jpg" alt="" loading="lazy" decoding="async" data-parallax="0.15" />
+    <video
+      class="cta__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      disablepictureinpicture
+      preload="metadata"
+      poster="/images/cta-poster.jpg"
+      data-parallax="0.15"
+    >
+      <source src="/videos/cta-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
+      <source src="/videos/cta.webm" type="video/webm" />
+      <source src="/videos/cta.mp4" type="video/mp4" />
+    </video>
     <div class="cta__veil"></div>
   </div>
 
@@ -43,8 +57,10 @@
     border-bottom: 1px solid var(--xyv-line);
   }
 
-  .cta__bg { position: absolute; inset: 0; z-index: -1; }
-  .cta__bg img {
+  .cta__bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+  .cta__video {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;

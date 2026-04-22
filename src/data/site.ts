@@ -50,7 +50,7 @@ export const products = [
     name: 'BALANCE',
     descriptor: 'Daily cycle-aware electrolytes',
     color: 'var(--product-balance)',
-    image: '/images/product-balance.jpg',
+    image: '/images/lab-bg.jpg',
     tagline: 'Your needs change. The product acknowledges this.',
     description:
       'Designed around the menstrual cycle — the body’s most fundamental rhythm. Cycle-aware daily mineral support, engineered for the phases of a real body.',
