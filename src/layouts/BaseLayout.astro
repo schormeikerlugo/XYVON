@@ -1,0 +1,265 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  image = site.ogImage,
+  canonical,
+  noIndex = false,
+} = Astro.props;
+
+const pageTitle = title
+  ? `${title} — ${site.name} · ${site.tagline}`
+  : `${site.name} — ${site.tagline}`;
+
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site ?? site.url);
+const ogImageURL = new URL(image, Astro.site ?? site.url).toString();
+
+// JSON-LD — Organization
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  alternateName: 'XYVON Science-Led Electrolytes',
+  url: site.url,
+  logo: `${site.url}/images/og-image.jpg`,
+  sameAs: [site.social.instagram, site.social.tiktok, site.social.substack],
+  founder: {
+    '@type': 'Person',
+    name: site.founder.name,
+    jobTitle: 'Founder & CEO',
+  },
+  slogan: site.tagline,
+  description: site.description,
+};
+
+// JSON-LD — Website with sitelinks search
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.url,
+  inLanguage: 'en',
+  publisher: { '@type': 'Organization', name: site.name },
+};
+
+// JSON-LD — FAQ baseline (brand trust anchors)
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What makes XYVON different from other electrolyte brands?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'XYVON is built on biology-specific formulation — cycle-aware for BALANCE, menopause-aware for SHIFT — with evidence-graded doses and EU GMP (Vitema) manufacturing.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are XYVON sachets zero sugar?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Every XYVON sachet is zero sugar, zero kcal, with transparent mg values on the front panel — no fine print.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Where is XYVON manufactured?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'XYVON is manufactured in the EU by Vitema under EU GMP pharmaceutical-grade standards, with a Certificate of Analysis available on every product page.',
+      },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={site.keywords.join(', ')} />
+    <meta name="author" content={`${site.name} · ${site.founder.name}`} />
+    <meta name="theme-color" content="#0B0B0C" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href={canonicalURL.toString()} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    {!noIndex && <meta name="robots" content="index, follow, max-image-preview:large" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale:alternate" content="ro_RO" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={site.twitter} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Icons & Manifest -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts — preconnect + stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    />
+
+    <!-- Resource hints -->
+    <link rel="preload" as="image" href="/images/hero-poster.jpg" fetchpriority="high" />
+    <link rel="preload" as="video" href="/videos/hero.webm" type="video/webm" media="(min-width: 769px)" />
+    <link rel="preload" as="video" href="/videos/hero-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
+
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="en" href={site.url} />
+    <link rel="alternate" hreflang="ro" href={`${site.url}/ro`} />
+    <link rel="alternate" hreflang="x-default" href={site.url} />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </head>
+
+  <body>
+    <a class="visually-hidden" href="#main">Skip to content</a>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"></div>
+
+    <slot />
+
+    <script>
+      // -- Intersection Observer reveals
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.14, rootMargin: '0px 0px -8% 0px' },
+      );
+
+      document.querySelectorAll('.reveal, .split').forEach((el) => io.observe(el));
+
+      // -- Custom cursor
+      const cursor = document.querySelector('.cursor');
+      if (cursor && matchMedia('(hover: hover)').matches) {
+        let tx = 0, ty = 0, cx = 0, cy = 0;
+        document.addEventListener('mousemove', (e) => {
+          tx = (e as MouseEvent).clientX;
+          ty = (e as MouseEvent).clientY;
+          cursor.classList.add('is-active');
+        });
+        const loop = () => {
+          cx += (tx - cx) * 0.18;
+          cy += (ty - cy) * 0.18;
+          (cursor as HTMLElement).style.transform =
+            `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`;
+          requestAnimationFrame(loop);
+        };
+        loop();
+        document.querySelectorAll('a, button, [data-hover]').forEach((el) => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+        });
+      }
+
+      // -- Parallax on [data-parallax]
+      const parallaxEls = document.querySelectorAll<HTMLElement>('[data-parallax]');
+      if (parallaxEls.length) {
+        const onScroll = () => {
+          const y = window.scrollY;
+          parallaxEls.forEach((el) => {
+            const speed = Number(el.dataset.parallax ?? 0.15);
+            const rect = el.getBoundingClientRect();
+            const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+            if (!inView) return;
+            const offset = (window.innerHeight / 2 - rect.top) * speed;
+            el.style.setProperty('--py', `${offset}px`);
+          });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+
+      // -- Smart header: condense + hide on scroll-down / show on scroll-up
+      const header = document.querySelector<HTMLElement>('[data-header]');
+      if (header) {
+        let lastY = window.scrollY;
+        let ticking = false;
+        const REVEAL_AT_TOP = 64;   // always visible above this Y
+        const JITTER = 6;           // ignore sub-pixel scroll noise
+        const HIDE_AFTER = 120;     // only start hiding past this offset
+
+        const update = () => {
+          const y = Math.max(0, window.scrollY);
+          const diff = y - lastY;
+
+          // Background blur kicks in as soon as we leave the top
+          header.dataset.scrolled = String(y > 24);
+
+          if (y < REVEAL_AT_TOP) {
+            header.dataset.hidden = 'false';
+          } else if (Math.abs(diff) > JITTER && y > HIDE_AFTER) {
+            header.dataset.hidden = diff > 0 ? 'true' : 'false';
+          }
+
+          lastY = y;
+          ticking = false;
+        };
+
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (!ticking) {
+              requestAnimationFrame(update);
+              ticking = true;
+            }
+          },
+          { passive: true },
+        );
+        update();
+      }
+    </script>
+  </body>
+</html>

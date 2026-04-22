@@ -1,0 +1,99 @@
+---
+---
+
+<section class="cta" aria-label="Start your protocol">
+  <div class="cta__bg" aria-hidden="true">
+    <img src="/images/cta-bg.jpg" alt="" loading="lazy" decoding="async" data-parallax="0.15" />
+    <div class="cta__veil"></div>
+  </div>
+
+  <div class="wrap cta__inner">
+    <p class="eyebrow reveal">Ready when you are</p>
+    <h2 class="cta__title split">
+      {'Start with the biology'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}
+      <br />
+      <em>{'you actually live in.'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}</em>
+    </h2>
+    <p class="cta__copy reveal" data-stagger="2">
+      15 sachets. Zero sugar. Evidence on the front panel. Subscription is one toggle —
+      never aggressive. Cancel in one click. We built trust before we built the cart.
+    </p>
+    <div class="cta__actions reveal" data-stagger="3">
+      <a href="#products" class="btn btn--copper" data-hover>
+        <span>Shop the System</span>
+        <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M1 7h12M8 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+      <a href="/which-xyvon" class="btn btn--ghost" data-hover>
+        <span>Which XYVON is for you?</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding-block: clamp(7rem, 14vw, 12rem);
+    text-align: center;
+    border-top: 1px solid var(--xyv-line);
+    border-bottom: 1px solid var(--xyv-line);
+  }
+
+  .cta__bg { position: absolute; inset: 0; z-index: -1; }
+  .cta__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate3d(0, var(--py, 0), 0) scale(1.1);
+    filter: grayscale(0.8) contrast(1.1);
+    opacity: 0.45;
+  }
+
+  .cta__veil {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, var(--xyv-black-deep) 0%, rgba(11, 11, 12, 0.7) 50%, var(--xyv-black-deep) 100%),
+      radial-gradient(ellipse at center, rgba(184, 115, 51, 0.18), transparent 55%);
+  }
+
+  .cta__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-5);
+  }
+
+  .cta__title {
+    font-size: var(--fs-hero);
+    line-height: 1;
+    letter-spacing: -0.045em;
+    font-weight: 700;
+    max-width: min(22ch, 100%);
+    justify-content: center;
+  }
+
+  .cta__title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--xyv-copper);
+  }
+
+  .cta__copy {
+    color: var(--ink-muted);
+    font-size: var(--fs-lead);
+    max-width: 56ch;
+  }
+
+  .cta__actions {
+    display: inline-flex;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--sp-3);
+  }
+</style>

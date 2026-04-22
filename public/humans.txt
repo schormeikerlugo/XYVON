@@ -1,0 +1,14 @@
+/* TEAM */
+Founder & CEO: Peter Barta
+Role: Science lead, formulation, founder story
+Location: Romania → EU
+
+/* SITE */
+Last update: 2026/04
+Language: English / Română
+Standards: HTML5, CSS3, Astro, Vite
+Components: Semantic, accessible, no cookies beyond essentials
+Manufacturing partner: Vitema (EU GMP pharmaceutical grade)
+
+/* THANKS */
+To every customer who chose evidence over branding.

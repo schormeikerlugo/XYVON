@@ -1,0 +1,204 @@
+---
+const problems = [
+  {
+    n: '01',
+    label: 'Generic doses',
+    copy:
+      'Most electrolyte brands copy the same sodium-heavy formula and print it bigger. Doses aren’t tuned to biology — they’re tuned to shelf appeal.',
+  },
+  {
+    n: '02',
+    label: 'Pink aisles vs. neon aisles',
+    copy:
+      'Women get pastel wellness. Athletes get black-and-neon. Nobody gets a formulation that acknowledges a cycle, a taper, or a real evening.',
+  },
+  {
+    n: '03',
+    label: 'Fluff over evidence',
+    copy:
+      'Hydration claims without mg counts. Lifestyle photography without lab standards. Loud branding that collapses the moment a scientist asks a question.',
+  },
+];
+---
+
+<section class="problem" id="problem" aria-labelledby="problem-title">
+  <div class="wrap">
+    <header class="problem__head">
+      <p class="eyebrow reveal">The Problem</p>
+      <h2 id="problem-title" class="problem__title split">
+        {'The electrolyte aisle was built for marketing, not biology.'
+          .split(' ')
+          .map((w) => (
+            <span class="split__word"><span>{w}</span></span>
+          ))}
+      </h2>
+    </header>
+
+    <div class="problem__grid">
+      {problems.map((p, i) => (
+        <article class="problem__card reveal" data-stagger={i + 1}>
+          <span class="problem__num">{p.n}</span>
+          <h3 class="problem__label">{p.label}</h3>
+          <p class="problem__copy">{p.copy}</p>
+          <span class="problem__rule" aria-hidden="true"></span>
+        </article>
+      ))}
+    </div>
+
+    <p class="problem__closing reveal" data-stagger="4">
+      <span class="problem__closing-bar" aria-hidden="true"></span>
+      <span>
+        <strong>XYVON starts elsewhere.</strong>
+        Every ingredient amount is justified on the sachet. Every sachet is justified on the product page.
+        Every product is justified by a biology it was engineered to serve.
+      </span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .problem {
+    background: var(--xyv-black-deep);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background:
+      radial-gradient(ellipse at right, rgba(184, 115, 51, 0.07), transparent 70%);
+    pointer-events: none;
+  }
+
+  .problem__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-9);
+  }
+
+  .problem__title {
+    font-size: var(--fs-display);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    max-width: 22ch;
+  }
+
+  .problem__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-bottom: var(--sp-9);
+  }
+
+  .problem__card {
+    padding: var(--sp-6) var(--sp-5);
+    border-left: 1px solid var(--xyv-line);
+    position: relative;
+    transition: background var(--dur-med) var(--ease-smooth);
+  }
+
+  .problem__card:hover {
+    background: rgba(184, 115, 51, 0.04);
+  }
+
+  .problem__card:first-child { border-left: 0; }
+
+  .problem__num {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--fs-small);
+    color: var(--xyv-copper);
+    letter-spacing: var(--tracking-caps-wide);
+    margin-bottom: var(--sp-5);
+  }
+
+  .problem__label {
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--sp-4);
+  }
+
+  .problem__copy {
+    color: var(--ink-muted);
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+
+  .problem__rule {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--xyv-copper);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 700ms var(--ease-out);
+  }
+
+  .problem__card:hover .problem__rule { transform: scaleX(1); }
+
+  .problem__closing {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-5);
+    max-width: 80ch;
+    color: var(--ink-muted);
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+    padding-top: var(--sp-7);
+    border-top: 1px solid var(--xyv-line);
+  }
+
+  .problem__closing strong {
+    color: var(--xyv-off-white);
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--sp-2);
+  }
+
+  .problem__closing-bar {
+    flex-shrink: 0;
+    width: 3px;
+    height: 2.4em;
+    background: var(--xyv-copper);
+    margin-top: 0.15em;
+  }
+
+  @media (max-width: 880px) {
+    .problem__grid { grid-template-columns: 1fr; }
+    .problem__card {
+      border-left: 0;
+      border-top: 1px solid var(--xyv-line);
+    }
+    .problem__card:first-child { border-top: 0; }
+  }
+
+  @media (max-width: 640px) {
+    .problem__head { align-items: center; text-align: center; }
+    .problem__title { margin-inline: auto; }
+
+    .problem__card { text-align: center; align-items: center; }
+    .problem__num { margin-inline: auto; }
+    .problem__copy { margin-inline: auto; }
+
+    .problem__closing { flex-direction: column; text-align: center; align-items: center; }
+    .problem__closing-bar {
+      width: 40px;
+      height: 3px;
+      margin-top: 0;
+    }
+    .problem__closing strong {
+      text-align: center;
+    }
+  }
+</style>

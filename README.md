@@ -1,0 +1,156 @@
+# XYVON — Science-Led Electrolytes
+
+Official marketing site for XYVON. Built with **Astro + Vite + pure CSS**.
+Dark cinematic identity: deep black (`#0B0B0C` / `#1A1A1A`) with copper/gold (`#B87333`) accents,
+anchored to the XYVON Brand Manual v1.0 (Section 4) and the Reconciled Shopify Strategy v1.0.3.
+
+---
+
+## Stack
+
+- **Framework:** Astro 4 (zero-JS by default, hydrate islands where needed)
+- **Bundler:** Vite (integrated with Astro)
+- **CSS:** Vanilla CSS with design tokens (no Tailwind, no preprocessor)
+- **CSS transform:** LightningCSS (minification + vendor prefixing)
+- **SEO:** `@astrojs/sitemap` + hand-rolled JSON-LD (Organization / WebSite / FAQ / ItemList-Product)
+
+## Run it
+
+```bash
+npm install
+npm run dev         # http://localhost:4321
+npm run build       # static output to ./dist
+npm run preview     # serve ./dist locally
+```
+
+The site is a static build — deploy `./dist` to Netlify, Vercel, Cloudflare Pages, or any CDN.
+
+## Project structure
+
+```
+XYVON/
+├── astro.config.mjs          # sitemap, lightningcss, site URL
+├── package.json
+├── tsconfig.json
+├── public/                   # static assets served as-is
+│   ├── favicon.svg
+│   ├── robots.txt
+│   ├── site.webmanifest
+│   ├── humans.txt
+│   ├── images/               # 14 optimized JPGs (product, hero, gallery, cta)
+│   └── videos/               # 4 MOV sources — see "Video conversion" below
+├── referencia/               # Original source documents & assets (not served)
+└── src/
+    ├── data/
+    │   └── site.ts           # Brand data: products, ingredients, nav, trust
+    ├── layouts/
+    │   └── BaseLayout.astro  # <head>, meta, OG/Twitter, JSON-LD, cursor, grain
+    ├── styles/
+    │   ├── tokens.css        # Design tokens (colors, type, spacing, motion)
+    │   ├── base.css          # Reset + typography + layout helpers
+    │   ├── animations.css    # Keyframes, reveal, marquee, grain, buttons
+    │   └── global.css        # Barrel file
+    ├── components/
+    │   ├── Header.astro      # Fixed nav with scroll-condense + copper pulse
+    │   ├── Hero.astro        # Cinematic video + split-word title + stat rail + giant XYVON
+    │   ├── Marquee.astro     # Infinite tagline band
+    │   ├── Problem.astro     # 3-column positioning grid
+    │   ├── Products.astro    # Asymmetric 5-SKU grid with mock sachet card
+    │   ├── Science.astro     # Ingredient ledger + rotating COA stamp
+    │   ├── Gallery.astro     # Documentary-premium asymmetric gallery
+    │   ├── Founder.astro     # Peter Barta story, PN-certified block
+    │   ├── Substack.astro    # Subscribe + latest issues
+    │   ├── Cta.astro         # Closing section
+    │   └── Footer.astro      # Sitemap + giant XYVON textmark
+    └── pages/
+        └── index.astro       # Homepage (5-SKU ItemList schema)
+```
+
+## Design system
+
+All tokens live in `src/styles/tokens.css`. Core palette:
+
+| Token              | Value     | Usage                                         |
+| ------------------ | --------- | --------------------------------------------- |
+| `--xyv-black-deep` | `#0B0B0C` | Primary dark background                       |
+| `--xyv-black`      | `#1A1A1A` | Brand Manual primary (used in wordmark / type)|
+| `--xyv-copper`     | `#B87333` | Brand accent (10–20% ratio rule)              |
+| `--xyv-off-white`  | `#F5F2EE` | Primary foreground / reading bg               |
+| `--product-balance`| `#D4A0A0` | BALANCE sachet signature                      |
+| `--product-perform`| `#C4854C` | PERFORM sachet signature                      |
+| `--product-recover`| `#7BA08A` | RECOVER sachet signature                      |
+| `--product-him`    | `#2A2A2A` | HIM sachet signature                          |
+
+Typography: Montserrat (display, wordmark) + Inter (body) loaded via Google Fonts
+with `preconnect`. Tracking on all-caps follows Brand Manual 4.3 (+25 to +75).
+
+## Animations / effects
+
+- **Split-word reveal** — headings animate word by word on IntersectionObserver
+- **Reveal/stagger** — `.reveal[data-stagger="N"]` for cascading fades
+- **Film grain** — fullscreen noise SVG with `mix-blend-mode: overlay`
+- **Copper orbs** — mouse-magnetic radial gradients in the hero
+- **Parallax** — `[data-parallax="0.08"]` offsets images on scroll
+- **Marquee** — infinite looping tagline band
+- **Custom cursor** — circular copper ring with hover-expand
+- **Sachet tilt** — product cards lift + rotate their faux-sachet on hover
+- **Rotating COA stamp** — SVG text-on-path circular slow spin
+
+All animations honor `prefers-reduced-motion`.
+
+## SEO
+
+Baked-in:
+
+- Title/description/keywords per page (propagated through `BaseLayout`)
+- `og:*` Open Graph + Twitter Card with 1200×630 OG image
+- `<link rel="canonical">` and three `hreflang` alternates (en, ro, x-default)
+- `application/ld+json` × 4: Organization, WebSite, FAQPage, ItemList (products)
+- `robots.txt` with explicit Googlebot/Bingbot/GPTBot allows + sitemap refs
+- `sitemap-index.xml` + `sitemap-0.xml` auto-generated by `@astrojs/sitemap`
+- PWA manifest (`site.webmanifest`) with theme-color matching brand black
+- Semantic landmarks: `<header>`, `<main id="main">`, `<footer>`; skip-to-content link
+- `preconnect` + `preload` on fonts and the hero video/fallback
+
+**Before going live:**
+
+1. Replace the `site` URL in `astro.config.mjs` and `src/data/site.ts`
+2. Regenerate a real `apple-touch-icon.png` (180×180)
+3. Create a branded `/images/og-image.jpg` at 1200×630 (currently uses an Adobe reference)
+4. Submit the sitemap in Google Search Console + Bing Webmaster Tools
+5. Add analytics of your choice (Plausible/Umami recommended — GDPR-friendly)
+
+## Video conversion (important)
+
+The source `.mov` files in `public/videos/` are ProRes/QuickTime and heavy
+(60–80MB each). Browsers prefer `.mp4` (H.264) or `.webm` (VP9/AV1). Convert with:
+
+```bash
+# For each file in public/videos/*.mov:
+ffmpeg -i public/videos/hero.mov \
+  -vcodec libx264 -crf 24 -preset slow -movflags +faststart \
+  -vf "scale=-2:1080,fps=24" -an \
+  public/videos/hero.mp4
+
+ffmpeg -i public/videos/hero.mov \
+  -c:v libvpx-vp9 -crf 32 -b:v 0 -an \
+  -vf "scale=-2:1080,fps=24" \
+  public/videos/hero.webm
+```
+
+Each `<video>` element already includes a QuickTime source as fallback and
+an MP4 source that will activate once you generate the file.
+
+## Brand rules enforced in code
+
+- No pure `#FFFFFF` anywhere (uses `#F5F2EE`)
+- No pure black; `#0B0B0C` / `#1A1A1A` instead
+- Copper is accent only (10–20%), never a background block
+- One CTA per section; no pop-ups, no countdown timers, no sticky carts
+- "Hydration" language replaced with "electrolyte balance" throughout
+- Product list lives on `/#products`; homepage has no `Add to cart`
+- Copy follows the "evidence-based, biology-aware, built by someone who cares" test
+
+## License
+
+Private / confidential — XYVON © 2026. Not for redistribution.

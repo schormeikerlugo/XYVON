@@ -1,0 +1,27 @@
+{
+  "name": "XYVON — Science-Led Electrolytes",
+  "short_name": "XYVON",
+  "description": "Science-led electrolyte sachets. Built around biology, not lifestyle. EU GMP Vitema, zero sugar, evidence-graded doses.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B0B0C",
+  "theme_color": "#0B0B0C",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["health", "shopping", "lifestyle"]
+}

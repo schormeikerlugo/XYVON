@@ -1,0 +1,266 @@
+---
+---
+
+<section class="substack" id="substack" aria-labelledby="substack-title">
+  <div class="substack__bg" aria-hidden="true">
+    <img
+      src="/images/product-recover.jpg"
+      alt=""
+      loading="lazy"
+      decoding="async"
+      width="1600"
+      height="1000"
+    />
+    <div class="substack__bg-veil"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="substack__inner">
+      <div class="substack__col">
+        <p class="eyebrow reveal">Content ecosystem</p>
+        <h2 id="substack-title" class="substack__title split">
+          {'Want the science?'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}
+          <br />
+          <em>{'Read our Substack.'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}</em>
+        </h2>
+        <p class="substack__copy reveal" data-stagger="2">
+          The science layer of XYVON lives on Substack: evidence reviews,
+          ingredient dives, and the thinking behind every dose. Written by
+          Peter. Not paywalled. Never marketing in disguise.
+        </p>
+      </div>
+
+      <div class="substack__col substack__col--right">
+        <form class="substack__form reveal" data-stagger="3" action="#" method="post" aria-label="Subscribe to XYVON Substack">
+          <label class="caps--wide" for="email">Subscribe</label>
+          <div class="substack__field">
+            <input id="email" name="email" type="email" placeholder="your@email.com" required autocomplete="email" />
+            <button type="submit" class="substack__submit" aria-label="Subscribe">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                <path d="M2 9h14M10 3l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+          <p class="substack__legal">
+            One clear CTA. No pop-ups. No countdown timers. Unsubscribe in one click.
+          </p>
+        </form>
+
+        <ul class="substack__list reveal" data-stagger="4">
+          <li>
+            <span class="caps--wide">Issue 04</span>
+            <h3>Why we rejected magnesium oxide on day one</h3>
+            <p>Bioavailability math, not a marketing decision.</p>
+          </li>
+          <li>
+            <span class="caps--wide">Issue 03</span>
+            <h3>Cycle-aware electrolytes: what the literature actually says</h3>
+            <p>A literature review without the wellness translation layer.</p>
+          </li>
+          <li>
+            <span class="caps--wide">Issue 02</span>
+            <h3>The “every ingredient earns its place” test</h3>
+            <p>How we killed three ingredients that would have made shelf-sense.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .substack {
+    position: relative;
+    isolation: isolate;
+    background: var(--xyv-black-deep);
+    border-top: 1px solid var(--xyv-line);
+  }
+
+  .substack__bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .substack__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.1);
+    opacity: 0.18;
+  }
+
+  .substack__bg-veil {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, var(--xyv-black-deep) 0%, rgba(11, 11, 12, 0.85) 50%, var(--xyv-black-deep) 100%),
+      radial-gradient(ellipse at right, rgba(184, 115, 51, 0.12), transparent 55%);
+  }
+
+  .substack__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-9);
+    align-items: start;
+    position: relative;
+  }
+
+  .substack__col { display: flex; flex-direction: column; gap: var(--sp-5); }
+
+  .substack__title {
+    font-size: var(--fs-display);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+
+  .substack__title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--xyv-copper);
+  }
+
+  .substack__copy {
+    color: var(--ink-muted);
+    font-size: var(--fs-lead);
+    max-width: 50ch;
+  }
+
+  /* ---------- Form ---------- */
+  .substack__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    padding: var(--sp-6);
+    border: 1px solid var(--xyv-line);
+    border-radius: var(--r-lg);
+    background:
+      linear-gradient(135deg, rgba(184, 115, 51, 0.1), transparent 60%),
+      var(--xyv-black-soft);
+  }
+
+  .substack__form label { color: var(--xyv-copper); }
+
+  .substack__field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--xyv-line-strong);
+    border-radius: var(--r-pill);
+    padding: 0.3em 0.35em 0.3em 1.25em;
+    transition: border-color var(--dur-med) var(--ease-smooth);
+  }
+
+  .substack__field:focus-within { border-color: var(--xyv-copper); }
+
+  .substack__field input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    color: var(--xyv-off-white);
+    font: inherit;
+    font-family: var(--font-body);
+    padding: 0.8em 0;
+    outline: none;
+  }
+
+  .substack__field input::placeholder { color: var(--ink-faint); }
+
+  .substack__submit {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--xyv-copper);
+    color: var(--xyv-black-deep);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--dur-med) var(--ease-smooth), transform var(--dur-med) var(--ease-out);
+  }
+
+  .substack__submit:hover {
+    background: var(--xyv-off-white);
+    transform: rotate(-10deg) scale(1.05);
+  }
+
+  .substack__legal {
+    font-size: var(--fs-xs);
+    color: var(--ink-faint);
+    margin-top: var(--sp-1);
+  }
+
+  /* ---------- List ---------- */
+  .substack__list {
+    list-style: none;
+    margin-top: var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+  }
+
+  .substack__list li {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-areas:
+      'meta title'
+      '.    desc';
+    column-gap: var(--sp-5);
+    row-gap: var(--sp-2);
+    padding-bottom: var(--sp-5);
+    border-bottom: 1px solid var(--xyv-line);
+  }
+
+  .substack__list li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+  .substack__list .caps--wide {
+    grid-area: meta;
+    color: var(--xyv-copper);
+    padding-top: 3px;
+    white-space: nowrap;
+    align-self: start;
+  }
+
+  .substack__list h3 {
+    grid-area: title;
+    font-size: var(--fs-body);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    min-width: 0;
+  }
+
+  .substack__list p {
+    grid-area: desc;
+    font-size: var(--fs-small);
+    color: var(--ink-muted);
+    min-width: 0;
+  }
+
+  @media (max-width: 960px) {
+    .substack__inner { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .substack__col { align-items: center; text-align: center; }
+    .substack__title { margin-inline: auto; }
+    .substack__copy { margin-inline: auto; }
+
+    .substack__form { width: 100%; }
+    .substack__form label { text-align: center; }
+    .substack__legal { text-align: center; }
+
+    .substack__list { width: 100%; }
+    .substack__list li {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'meta'
+        'title'
+        'desc';
+      row-gap: var(--sp-2);
+      text-align: center;
+      justify-items: center;
+    }
+    .substack__list h3 { text-align: center; }
+    .substack__list p { text-align: center; }
+  }
+</style>

@@ -1,0 +1,476 @@
+---
+import { products } from '../data/site';
+---
+
+<section class="products" id="products" aria-labelledby="products-title">
+  <div class="wrap">
+    <header class="products__head">
+      <div class="products__meta">
+        <p class="eyebrow reveal">The System · 5 SKUs</p>
+        <h2 id="products-title" class="products__title split">
+          {'Five products.'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}
+          <br />
+          {'Five biologies.'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}
+        </h2>
+      </div>
+      <p class="products__intro reveal" data-stagger="2">
+        One mineral protocol per life stage and per training context. No overlap.
+        No filler SKUs. Each sachet carries the exact mg of sodium, potassium,
+        and magnesium on the front panel — because trust is a design decision.
+      </p>
+    </header>
+
+    <div class="products__grid">
+      {products.map((p, i) => (
+        <article
+          class="product"
+          id={p.id}
+          style={`--product-color: ${p.color}`}
+          data-hover
+        >
+          <a href={`#${p.id}-details`} class="product__link" aria-label={`View ${p.name}`}>
+            <div class="product__media">
+              <div class="product__glow" aria-hidden="true"></div>
+              <img
+                src={p.image}
+                alt={`${p.name} — ${p.descriptor}`}
+                loading={i < 2 ? 'eager' : 'lazy'}
+                decoding="async"
+                width="800"
+                height="1000"
+                data-parallax="0.08"
+              />
+              <div class="product__overlay" aria-hidden="true"></div>
+
+              <div class="product__sachet" aria-hidden="true">
+                <span class="product__sachet-brand">XYVON</span>
+                <span class="product__sachet-name">{p.name}</span>
+                <span class="product__sachet-desc">{p.descriptor}</span>
+                <span class="product__sachet-rule"></span>
+                <div class="product__sachet-minerals">
+                  <span><b>{p.mineralNa}</b>MG<small>Na</small></span>
+                  <span><b>{p.mineralK}</b>MG<small>K</small></span>
+                  <span><b>{p.mineralMg}</b>MG<small>Mg</small></span>
+                </div>
+                <span class="product__sachet-zero">ZERO SUGAR · ZERO KCAL</span>
+              </div>
+
+              {p.status === 'coming-2026' && (
+                <span class="product__badge">Launches 2026</span>
+              )}
+            </div>
+
+            <div class="product__body">
+              <div class="product__row">
+                <h3 class="product__name">{p.name}</h3>
+                <span class="product__index">0{i + 1}</span>
+              </div>
+              <p class="product__desc">{p.descriptor}</p>
+              <p class="product__tag">{p.tagline}</p>
+
+              <div class="product__foot">
+                <span class="product__price">
+                  <small>From</small> {p.price}
+                  <small>· {p.servings} sachets</small>
+                </span>
+                <span class="product__cta">
+                  <span>Learn More</span>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+                    <path d="M1 7h12M8 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <div class="products__finder reveal">
+      <div class="products__finder-copy">
+        <p class="caps--wide">Not sure which XYVON is for you?</p>
+        <p>A three-question, non-gated, non-email product finder. Education first, conversion second.</p>
+      </div>
+      <a href="/which-xyvon" class="btn btn--ghost" data-hover>
+        <span>Find your XYVON</span>
+        <svg class="arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M1 7h12M8 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .products {
+    background: var(--xyv-black-deep);
+    position: relative;
+  }
+
+  .products__head {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--sp-8);
+    align-items: end;
+    margin-bottom: var(--sp-9);
+    padding-bottom: var(--sp-7);
+    border-bottom: 1px solid var(--xyv-line);
+  }
+
+  .products__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .products__title {
+    font-size: var(--fs-display);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .products__title .split__word:nth-child(n + 4) {
+    color: var(--xyv-copper);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .products__intro {
+    color: var(--ink-muted);
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+    max-width: 50ch;
+    padding-bottom: var(--sp-3);
+  }
+
+  /* ---------- Grid ---------- */
+  .products__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .product {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .product:nth-child(1) { grid-column: span 6; }
+  .product:nth-child(2) { grid-column: span 6; }
+  .product:nth-child(3) { grid-column: span 4; }
+  .product:nth-child(4) { grid-column: span 4; }
+  .product:nth-child(5) { grid-column: span 4; }
+
+  .product__link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    height: 100%;
+  }
+
+  /* ---------- Media ---------- */
+  .product__media {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border-radius: var(--r-lg);
+    background: linear-gradient(160deg, color-mix(in srgb, var(--product-color) 20%, var(--xyv-black-soft)), var(--xyv-black-soft));
+    box-shadow: var(--shadow-md), var(--shadow-inset);
+  }
+
+  .product:nth-child(1) .product__media,
+  .product:nth-child(2) .product__media { aspect-ratio: 4/4.5; }
+
+  .product__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate3d(0, var(--py, 0), 0) scale(1.06);
+    transition: transform 1200ms var(--ease-out), filter 900ms var(--ease-smooth);
+    filter: grayscale(0.2) contrast(1.05) saturate(0.85);
+    opacity: 0.65;
+  }
+
+  .product__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(11, 11, 12, 0) 40%, rgba(11, 11, 12, 0.9) 100%),
+      linear-gradient(145deg, color-mix(in srgb, var(--product-color) 35%, transparent) 0%, transparent 60%);
+    transition: opacity var(--dur-med) var(--ease-smooth);
+  }
+
+  .product__glow {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    top: 10%;
+    left: 15%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--product-color) 45%, transparent), transparent 70%);
+    filter: blur(60px);
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-out);
+    mix-blend-mode: screen;
+  }
+
+  .product__link:hover .product__glow { opacity: 0.8; }
+  .product__link:hover img { transform: translate3d(0, var(--py, 0), 0) scale(1.1); filter: grayscale(0) contrast(1.1) saturate(1) brightness(1.05); opacity: 0.78; }
+
+  /* ---------- Sachet card ---------- */
+  .product__sachet {
+    position: absolute;
+    left: var(--sp-5);
+    right: var(--sp-5);
+    bottom: var(--sp-5);
+    padding: var(--sp-5);
+    border: 1px solid color-mix(in srgb, var(--product-color) 40%, transparent);
+    border-radius: var(--r-sm);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--product-color) 85%, var(--xyv-black-deep)), color-mix(in srgb, var(--product-color) 72%, var(--xyv-black-deep)));
+    color: var(--xyv-off-white);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--sp-2) var(--sp-3);
+    backdrop-filter: blur(8px);
+    box-shadow:
+      0 20px 60px -20px rgba(0, 0, 0, 0.7),
+      inset 0 0 0 1px rgba(245, 242, 238, 0.08);
+    transform: translate3d(0, 0, 0) rotate(-1deg);
+    transition: transform 700ms var(--ease-out);
+  }
+
+  .product__link:hover .product__sachet { transform: translate3d(0, -8px, 0) rotate(-0.5deg); }
+
+  .product__sachet-brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: var(--tracking-wordmark);
+    grid-column: 1;
+    opacity: 0.9;
+  }
+
+  .product__sachet-name {
+    grid-column: 1 / -1;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    letter-spacing: var(--tracking-caps);
+    line-height: 1;
+  }
+
+  .product__sachet-desc {
+    grid-column: 1 / -1;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    opacity: 0.82;
+  }
+
+  .product__sachet-rule {
+    grid-column: 1 / -1;
+    height: 1px;
+    background: rgba(245, 242, 238, 0.3);
+    margin-block: var(--sp-2);
+  }
+
+  .product__sachet-minerals {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--sp-3);
+  }
+
+  .product__sachet-minerals span {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 3px;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+
+  .product__sachet-minerals b {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .product__sachet-minerals small {
+    font-size: 0.65rem;
+    font-weight: 500;
+    margin-left: 2px;
+    opacity: 0.75;
+  }
+
+  .product__sachet-zero {
+    grid-column: 1 / -1;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.625rem;
+    letter-spacing: var(--tracking-caps-wide);
+    opacity: 0.85;
+    margin-top: var(--sp-1);
+  }
+
+  /* ---------- Badge ---------- */
+  .product__badge {
+    position: absolute;
+    top: var(--sp-4);
+    right: var(--sp-4);
+    padding: 0.4em 0.9em;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--xyv-off-white);
+    background: rgba(11, 11, 12, 0.7);
+    border: 1px solid var(--xyv-copper);
+    border-radius: var(--r-pill);
+    backdrop-filter: blur(10px);
+  }
+
+  /* ---------- Body ---------- */
+  .product__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    padding-block: var(--sp-3);
+  }
+
+  .product__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--sp-4);
+  }
+
+  .product__name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    letter-spacing: var(--tracking-caps);
+    line-height: 1;
+  }
+
+  .product__index {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-caps-wide);
+    color: var(--ink-faint);
+  }
+
+  .product__desc {
+    font-size: var(--fs-small);
+    color: var(--ink-muted);
+  }
+
+  .product__tag {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--xyv-copper);
+    max-width: 36ch;
+  }
+
+  .product__foot {
+    margin-top: auto;
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--xyv-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+
+  .product__price {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--fs-small);
+    letter-spacing: 0.01em;
+  }
+
+  .product__price small {
+    font-weight: 400;
+    color: var(--ink-faint);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    margin-right: 0.25em;
+  }
+
+  .product__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-caps);
+    color: var(--xyv-off-white);
+    transition: color var(--dur-fast) var(--ease-smooth);
+  }
+
+  .product__cta svg { transition: transform var(--dur-med) var(--ease-out); }
+  .product__link:hover .product__cta { color: var(--xyv-copper); }
+  .product__link:hover .product__cta svg { transform: translateX(4px); }
+
+  /* ---------- Finder band ---------- */
+  .products__finder {
+    margin-top: var(--sp-9);
+    padding: var(--sp-7);
+    border: 1px solid var(--xyv-line);
+    border-radius: var(--r-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--sp-6);
+    flex-wrap: wrap;
+    background:
+      linear-gradient(135deg, rgba(184, 115, 51, 0.06), transparent 60%),
+      var(--xyv-black-soft);
+  }
+
+  .products__finder-copy p:first-child {
+    color: var(--xyv-copper);
+    margin-bottom: var(--sp-2);
+  }
+
+  .products__finder-copy p:last-child {
+    color: var(--ink-muted);
+    max-width: 56ch;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .products__head { grid-template-columns: 1fr; }
+    .product:nth-child(n) { grid-column: span 6; }
+  }
+
+  @media (max-width: 640px) {
+    .product:nth-child(n) { grid-column: span 12; }
+
+    .products__head { text-align: center; }
+    .products__meta { align-items: center; }
+    .products__title { margin-inline: auto; }
+    .products__intro { margin-inline: auto; }
+
+    .product__body { align-items: center; text-align: center; }
+    .product__row { justify-content: center; gap: var(--sp-3); }
+    .product__index { display: none; }
+    .product__desc,
+    .product__tag { margin-inline: auto; }
+    .product__foot {
+      flex-direction: column;
+      gap: var(--sp-3);
+      align-items: center;
+    }
+
+    .products__finder {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      padding: var(--sp-6);
+    }
+    .products__finder-copy p:last-child { margin-inline: auto; }
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import { site } from '../data/site';
+
+const items = [
+  'Science-Led Electrolytes',
+  'Designed for biology',
+  'EU GMP · Vitema',
+  'Zero Sugar · Zero Kcal',
+  'Evidence-Based Doses',
+  'Transparent Labeling',
+];
+---
+
+<section class="marquee-band" aria-label="Trust signals">
+  <div class="marquee">
+    <div class="marquee__track">
+      {[...Array(2)].map(() => (
+        <div class="marquee__row">
+          {items.map((t) => (
+            <>
+              <span class="marquee__item">{t}</span>
+              <span class="marquee__sep"></span>
+            </>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee-band {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+    border-top: 1px solid var(--xyv-line);
+    border-bottom: 1px solid var(--xyv-line);
+    background: var(--xyv-black-soft);
+    position: relative;
+    isolation: isolate;
+  }
+
+  .marquee-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(184, 115, 51, 0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .marquee__row {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-9);
+    margin-right: var(--sp-9);
+  }
+
+  .marquee__item {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--ink-muted);
+  }
+
+  .marquee__item:nth-child(4n + 1) { color: var(--xyv-copper); font-style: normal; font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-caps); }
+</style>

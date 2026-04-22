@@ -1,0 +1,200 @@
+/* ============================================================
+   XYVON — Base reset + typography
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-feature-settings: 'ss01', 'cv01', 'cv11';
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html, body {
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink-primary);
+  background: var(--surface-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  letter-spacing: var(--tracking-copy);
+}
+
+/* ---------- Selection ---------- */
+::selection {
+  background: var(--xyv-copper);
+  color: var(--xyv-black-deep);
+}
+
+/* ---------- Scrollbar — refined ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--xyv-black-deep); }
+::-webkit-scrollbar-thumb {
+  background: var(--xyv-copper-dark);
+  border-radius: var(--r-pill);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--xyv-copper); }
+
+/* ---------- Media ---------- */
+img, video, svg, picture {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* ---------- Typography elements ---------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink-primary);
+}
+
+h1 { font-size: var(--fs-h1); font-weight: 700; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); font-weight: 500; }
+
+p { max-width: var(--max-w-reading); }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-smooth);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-xs);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ---------- Semantic utilities ---------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Layout shells ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.wrap--narrow {
+  max-width: 920px;
+}
+
+section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+/* ---------- Caps utility (brand-mandated tracking) ---------- */
+.caps {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  font-weight: 500;
+  font-size: var(--fs-small);
+}
+
+.caps--wide {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps-wide);
+  font-weight: 500;
+  font-size: var(--fs-xs);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps-wide);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* ---------- Copper rule ---------- */
+.rule {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--xyv-line-strong) 20%,
+    var(--xyv-line-strong) 80%,
+    transparent
+  );
+}
+
+.rule-copper {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent) 50%,
+    transparent
+  );
+}
+
+/* ---------- Focus-visible polish ---------- */
+:focus:not(:focus-visible) { outline: none; }

@@ -1,0 +1,176 @@
+---
+const tiles = [
+  { img: '/images/lifestyle-1.jpg', label: 'Morning protocol', caption: '06:12 — before the first coffee.' },
+  { img: '/images/lifestyle-2.jpg', label: 'Intra-training', caption: 'Mid-session. Sweat is real. So is the sodium.' },
+  { img: '/images/ingredient-1.jpg', label: 'The mineral layer', caption: 'Bisglycinate, not oxide. The difference costs more.' },
+  { img: '/images/lifestyle-3.jpg', label: 'Evening recovery', caption: 'After the day. Before sleep finds its rhythm.' },
+  { img: '/images/ingredient-2.jpg', label: 'Transparent labelling', caption: 'The mg is the marketing.' },
+  { img: '/images/ingredient-3.jpg', label: 'Cycle-aware', caption: 'Biology isn’t a trend. It’s the starting point.' },
+];
+---
+
+<section class="gallery" aria-label="XYVON in context">
+  <div class="wrap">
+    <header class="gallery__head">
+      <p class="eyebrow reveal">In context · Documentary premium</p>
+      <h2 class="gallery__title split">
+        {'Real people.'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}
+        <br />
+        <em>{'Real environments.'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}</em>
+        <br />
+        {'Real reactions.'.split(' ').map((w) => (<span class="split__word"><span>{w}</span></span>))}
+      </h2>
+    </header>
+
+    <div class="gallery__grid">
+      {tiles.map((t, i) => (
+        <figure class={`gallery__tile gallery__tile--${i % 6}`} data-hover>
+          <img
+            src={t.img}
+            alt={t.label}
+            loading="lazy"
+            decoding="async"
+            width="900"
+            height="1200"
+            data-parallax="0.06"
+          />
+          <figcaption>
+            <span class="caps--wide">0{i + 1}</span>
+            <strong>{t.label}</strong>
+            <span>{t.caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery {
+    background: var(--xyv-black-deep);
+    border-top: 1px solid var(--xyv-line);
+    overflow: hidden;
+  }
+
+  .gallery__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    margin-bottom: var(--sp-9);
+  }
+
+  .gallery__title {
+    font-size: var(--fs-display);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+    max-width: 22ch;
+  }
+
+  .gallery__title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--xyv-copper);
+  }
+
+  .gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 220px;
+    gap: var(--sp-4);
+  }
+
+  .gallery__tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--r-md);
+    margin: 0;
+    box-shadow: var(--shadow-md);
+    isolation: isolate;
+  }
+
+  /* Asymmetric layout */
+  .gallery__tile--0 { grid-column: span 3; grid-row: span 2; }
+  .gallery__tile--1 { grid-column: span 3; grid-row: span 1; }
+  .gallery__tile--2 { grid-column: span 2; grid-row: span 1; }
+  .gallery__tile--3 { grid-column: span 1; grid-row: span 1; }
+  .gallery__tile--4 { grid-column: span 3; grid-row: span 2; }
+  .gallery__tile--5 { grid-column: span 3; grid-row: span 1; }
+
+  .gallery__tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate3d(0, var(--py, 0), 0) scale(1.08);
+    transition: transform 1200ms var(--ease-out), filter 700ms var(--ease-smooth);
+    filter: grayscale(0.7) contrast(1.05);
+  }
+
+  .gallery__tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(0deg, rgba(11, 11, 12, 0.9) 0%, rgba(11, 11, 12, 0) 55%);
+    pointer-events: none;
+    transition: opacity var(--dur-med) var(--ease-smooth);
+  }
+
+  .gallery__tile:hover img {
+    transform: translate3d(0, var(--py, 0), 0) scale(1.12);
+    filter: grayscale(0) contrast(1.1) saturate(1.05);
+  }
+
+  .gallery__tile figcaption {
+    position: absolute;
+    left: var(--sp-4);
+    right: var(--sp-4);
+    bottom: var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: var(--xyv-off-white);
+    z-index: 1;
+  }
+
+  .gallery__tile figcaption .caps--wide {
+    color: var(--xyv-copper);
+    font-size: 0.625rem;
+  }
+
+  .gallery__tile figcaption strong {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--fs-body);
+  }
+
+  .gallery__tile figcaption span:last-child {
+    font-size: var(--fs-xs);
+    color: var(--ink-muted);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  @media (max-width: 880px) {
+    .gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 180px;
+    }
+    .gallery__tile--0,
+    .gallery__tile--1,
+    .gallery__tile--2,
+    .gallery__tile--3,
+    .gallery__tile--4,
+    .gallery__tile--5 {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+    .gallery__tile--0, .gallery__tile--4 { grid-row: span 2; }
+  }
+
+  @media (max-width: 640px) {
+    .gallery__head { align-items: center; text-align: center; }
+    .gallery__title { margin-inline: auto; }
+    .gallery__tile figcaption { align-items: center; text-align: center; }
+  }
+</style>
